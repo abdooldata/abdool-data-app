@@ -127,34 +127,34 @@
 
   <section id="login" class="tab-content">
     <h2>Login</h2>
-    <input type="text" id="login-username" placeholder="Username" />
-    <input type="password" id="login-password" placeholder="Password" />
+    <input type="text" id="login-username" placeholder="Username" required />
+    <input type="password" id="login-password" placeholder="Password" required />
     <button class="action" onclick="loginUser()">Login</button>
   </section>
 
   <section id="signup" class="tab-content">
     <h2>Signup</h2>
-    <input type="text" id="signup-username" placeholder="Username" />
-    <input type="password" id="signup-password" placeholder="Password" />
+    <input type="text" id="signup-username" placeholder="Username" required />
+    <input type="password" id="signup-password" placeholder="Password" required />
     <button class="action" onclick="signupUser()">Signup</button>
   </section>
 
   <section id="dashboard" class="tab-content">
     <h2>Buy Data</h2>
-    <select id="network">
+    <select id="network" required>
       <option value="">Select Network</option>
       <option value="MTN">MTN</option>
       <option value="GLO">GLO</option>
       <option value="AIRTEL">AIRTEL</option>
       <option value="9MOBILE">9MOBILE</option>
     </select>
-    <select id="plan">
+    <select id="plan" required>
       <option value="">Select Plan</option>
       <option value="500MB - ₦100">500MB - ₦100</option>
       <option value="1GB - ₦200">1GB - ₦200</option>
       <option value="2GB - ₦400">2GB - ₦400</option>
     </select>
-    <input type="tel" id="phone" placeholder="Enter Phone Number" />
+    <input type="tel" id="phone" placeholder="Enter Phone Number" required />
     <button class="action" onclick="buyData()">Buy Now</button>
     <p id="purchase-message"></p>
   </section>
@@ -166,9 +166,9 @@
 
   <section id="contact" class="tab-content">
     <h2>Contact Us</h2>
-    <input type="text" placeholder="Your Name" />
-    <input type="email" placeholder="Your Email" />
-    <textarea rows="4" placeholder="Your Message"></textarea>
+    <input type="text" placeholder="Your Name" required />
+    <input type="email" placeholder="Your Email" required />
+    <textarea rows="4" placeholder="Your Message" required></textarea>
     <button class="action">Submit</button>
   </section>
 
@@ -187,8 +187,6 @@
     function showTab(tabId) {
       document.querySelectorAll('.tab-content').forEach(tab => tab.classList.remove('active'));
       document.getElementById(tabId).classList.add('active');
-      if (tabId === 'admin') loadTransactions();
-      if (tabId === 'profile') loadProfile();
     }
 
     function signupUser() {
@@ -241,3 +239,39 @@
     }
 
     function toggleDarkMode() {
+      document.body.classList.toggle('dark');
+    }
+
+    function uploadImage(event) {
+      const file = event.target.files[0];
+      if (file) {
+        const reader = new FileReader();
+        reader.onload = () => {
+          const img = document.getElementById('profile-pic');
+          img.src = reader.result;
+          img.style.display = 'block';
+          localStorage.setItem('profilePic', reader.result);
+        };
+        reader.readAsDataURL(file);
+      }
+    }
+
+    function loadProfile() {
+      const user = JSON.parse(localStorage.getItem('user'));
+      const name = user?.username || 'Guest';
+      document.getElementById('profile-name').textContent = `Welcome, ${name}`;
+      const pic = localStorage.getItem('profilePic');
+      if (pic) {
+        const img = document.getElementById('profile-pic');
+        img.src = pic;
+        img.style.display = 'block';
+      }
+    }
+
+    document.addEventListener('DOMContentLoaded', () => {
+      loadTransactions();
+    });
+
+  </script>
+</body>
+</html>
