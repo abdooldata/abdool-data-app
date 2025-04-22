@@ -1,366 +1,223 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>abdooldata App</title>
-  <link rel="icon" href="https://cdn-icons-png.flaticon.com/512/1041/1041916.png" type="image/png">
-  <style>
-    * {
-      box-sizing: border-box;
-      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-      margin: 0;
-      padding: 0;
-      transition: all 0.3s ease-in-out;
-    }
-    body {
-      background: #f4f4f9;
-      color: #333;
-      padding: 1rem;
-    }
-    body.dark {
-      background: #1c1c1c;
-      color: #fff;
-    }
-    header {
-      background-color: #0047ab;
-      padding: 1rem;
-      text-align: center;
-      color: white;
-      border-radius: 10px;
-      margin-bottom: 1rem;
-    }
-    nav {
-      display: flex;
-      justify-content: center;
-      flex-wrap: wrap;
-      gap: 1rem;
-      margin-bottom: 2rem;
-    }
-    nav button {
-      padding: 0.6rem 1.2rem;
-      border: none;
-      border-radius: 5px;
-      background-color: #0047ab;
-      color: white;
-      cursor: pointer;
-    }
-    nav button:hover {
-      background-color: #002e75;
-    }
-    .tab-content {
-      display: none;
-      background: white;
-      padding: 2rem;
-      border-radius: 10px;
-      box-shadow: 0 0 10px rgba(0,0,0,0.1);
-    }
-    .tab-content.active {
-      display: block;
-    }
-    input, select, textarea {
-      width: 100%;
-      padding: 0.5rem;
-      margin: 0.5rem 0;
-      border: 1px solid #ccc;
-      border-radius: 5px;
-    }
-    button.action {
-      background-color: #28a745;
-      color: white;
-      padding: 0.6rem 1rem;
-      border: none;
-      border-radius: 5px;
-      cursor: pointer;
-      margin-top: 1rem;
-    }
-    button.action:hover {
-      background-color: #1e7e34;
-    }
-    footer {
-      text-align: center;
-      margin-top: 3rem;
-      color: #777;
-    }
-    .dark header, .dark .tab-content {
-      background-color: #222;
-    }
-    .dark nav button {
-      background-color: #666;
-    }
-    #darkToggle {
-      position: fixed;
-      top: 10px;
-      right: 10px;
-      padding: 0.4rem 0.8rem;
-      background-color: #333;
-      color: white;
-      border: none;
-      border-radius: 5px;
-      cursor: pointer;
-      z-index: 100;
-    }
-    #profile-pic {
-      width: 100px;
-      height: 100px;
-      object-fit: cover;
-      border-radius: 50%;
-      margin-top: 1rem;
-    }
-  </style>
-</head>
-<body>
-  <button id="darkToggle" onclick="toggleDarkMode()">Dark Mode</button>
-  <header>
-    <h1>abdooldata App</h1>
-    <p>Buy Data Easily & Instantly</p>
-  </header>
-
-  <nav>
-    <button onclick="showTab('login')">Login</button>
-    <button onclick="showTab('signup')">Signup</button>
-    <button onclick="showTab('dashboard')">Dashboard</button>
-    <button onclick="showTab('admin')">Admin</button>
-    <button onclick="showTab('contact')">Contact</button>
-    <button onclick="showTab('profile')">Profile</button>
-  </nav>
-
-  <section id="login" class="tab-content">
-    <h2>Login</h2>
-    <input type="text" id="login-username" placeholder="Username" required />
-    <input type="password" id="login-password" placeholder="Password" required />
-    <button class="action" onclick="loginUser()">Login</button>
-  </section>
-
-  <section id="signup" class="tab-content">
-    <h2>Signup</h2>
-    <input type="text" id="signup-username" placeholder="Username" required />
-    <input type="password" id="signup-password" placeholder="Password" required />
-    <button class="action" onclick="signupUser()">Signup</button>
-  </section>
-
-  <section id="dashboard" class="tab-content">
-    <h2>Buy Data</h2>
-    <select id="network" required>
-      <option value="">Select Network</option>
-      <option value="MTN">MTN</option>
-      <option value="GLO">GLO</option>
-      <option value="AIRTEL">AIRTEL</option>
-      <option value="9MOBILE">9MOBILE</option>
-    </select>
-    <select id="plan" required>
-      <option value="">Select Plan</option>
-      <option value="500MB - ₦100">500MB - ₦100</option>
-      <option value="1GB - ₦200">1GB - ₦200</option>
-      <option value="2GB - ₦400">2GB - ₦400</option>
-    </select>
-    <input type="tel" id="phone" placeholder="Enter Phone Number" required />
-    <button class="action" onclick="buyData()">Buy Now</button>
-    <p id="purchase-message"></p>
-  </section>
-
-  <section id="admin" class="tab-content">
-    <h2>Admin Panel</h2>
-    <ul id="transactions"></ul>
-  </section>
-
-  <section id="contact" class="tab-content">
-    <h2>Contact Us</h2>
-    <input type="text" placeholder="Your Name" required />
-    <input type="email" placeholder="Your Email" required />
-    <textarea rows="4" placeholder="Your Message" required></textarea>
-    <button class="action">Submit</button>
-  </section>
-
-  <section id="profile" class="tab-content">
-    <h2>Your Profile</h2>
-    <input type="file" accept="image/*" onchange="uploadImage(event)" />
-    <img id="profile-pic" src="" alt="Profile Picture" style="display: none;" />
-    <p id="profile-name"></p>
-  </section>
-
-  <footer>
-    <p>&copy; 2025 abdooldata. All rights reserved.</p>
-  </footer>
-
-  <script>
-    function showTab(tabId) {
-      document.querySelectorAll('.tab-content').forEach(tab => tab.classList.remove('active'));
-      document.getElementById(tabId).classList.add('active');
-    }
-
-    function signupUser() {
-      const username = document.getElementById('signup-username').value;
-      const password = document.getElementById('signup-password').value;
-      localStorage.setItem('user', JSON.stringify({ username, password }));
-      alert('Signup successful! Please login.');
-      showTab('login');
-    }
-
-    function loginUser() {
-      const username = document.getElementById('login-username').value;
-      const password = document.getElementById('login-password').value;
-      const user = JSON.parse(localStorage.getItem('user'));
-      if (user && user.username === username && user.password === password) {
-        alert('Login successful!');
-        showTab('dashboard');
-      } else {
-        alert('Invalid credentials');
-      }
-    }
-
-    function buyData() {
-      const network = document.getElementById('network').value;
-      const plan = document.getElementById('plan').value;
-      const phone = document.getElementById('phone').value;
-      const msg = document.getElementById('purchase-message');
-      if (network && plan && phone) {
-        msg.innerText = `Processing your ${plan} on ${network} for ${phone}...`;
-        const log = JSON.parse(localStorage.getItem('transactions') || '[]');
-        log.push({ network, plan, phone, time: new Date().toLocaleString() });
-        localStorage.setItem('transactions', JSON.stringify(log));
-        setTimeout(() => {
-          msg.innerText = `Success! ${plan} sent to ${phone}`;
-        }, 2000);
-      } else {
-        msg.innerText = 'Please fill all fields.';
-      }
-    }
-
-    function loadTransactions() {
-      const list = document.getElementById('transactions');
-      const log = JSON.parse(localStorage.getItem('transactions') || '[]');
-      list.innerHTML = '';
-      log.forEach(entry => {
-        const li = document.createElement('li');
-        li.textContent = `${entry.plan} on ${entry.network} to ${entry.phone} — ${entry.time}`;
-        list.appendChild(li);
-      });
-    }
-
-    function toggleDarkMode() {
-      document.body.classList.toggle('dark');
-    }
-
-    function uploadImage(event) {
-      const file = event.target.files[0];
-      if (file) {
-        const reader = new FileReader();
-        reader.onload = () => {
-          const img = document.getElementById('profile-pic');
-          img.src = reader.result;
-          img.style.display = 'block';
-          localStorage.setItem('profilePic', reader.result);
-        };
-        reader.readAsDataURL(file);
-      }
-    }
-
-    function loadProfile() {
-      const user = JSON.parse(localStorage.getItem('user'));
-      const name = user?.username || 'Guest';
-      document.getElementById('profile-name').textContent = `Welcome, ${name}`;
-      const pic = localStorage.getItem('profilePic');
-      if (pic) {
-        const img = document.getElementById('profile-pic');
-        img.src = pic;
-        img.style.display = 'block';
-      }
-    }
-
-    document.addEventListener('DOMContentLoaded', () => {
-      loadTransactions();
-    });
-
-  </script>
-</body>
-</html>
-<!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>abdooldata App</title>
-  <link rel="icon" href="https://cdn-icons-png.flaticon.com/512/1041/1041916.png" type="image/png">
-  <style>
-    * {
-      box-sizing: border-box;
-      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-      margin: 0;
-      padding: 0;
-      transition: all 0.3s ease-in-out;
-    }
-
-    body {
-      background: #f4f4f9;
-      color: #333;
-      padding: 1rem;
-    }
-
-    header {
-      background-color: #0047ab;
-      padding: 1rem;
-      text-align: center;
-      color: white;
-      border-radius: 10px;
-      margin-bottom: 1rem;
-    }
-
-    footer {
-      text-align: center;
-      margin-top: 3rem;
-      color: #777;
-    }
-
-    #paystack-button {
-      padding: 1rem 2rem;
-      background-color: #28a745;
-      color: white;
-      border: none;
-      border-radius: 5px;
-      cursor: pointer;
-      font-size: 1rem;
-      margin-top: 1rem;
-    }
-
-    #paystack-button:hover {
-      background-color: #218838;
-    }
-  </style>
-</head>
-<body>
-  <header>
-    <h1>abdooldata App</h1>
-    <p>Buy Data Easily & Instantly</p>
-  </header>
-
-  <!-- Paystack Payment Button -->
-  <button id="paystack-button" onclick="payWithPaystack()">Pay ₦25 with Paystack</button>
-
-  <footer>
-    <p>&copy; 2025 abdooldata. All rights reserved.</p>
-  </footer>
-
-  <!-- Paystack Inline.js Script -->
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>User Authentication with Paystack and Buy Data/Airtime</title>
   <script src="https://js.paystack.co/v1/inline.js"></script>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      margin: 0;
+      padding: 0;
+      background-color: #f0f0f0;
+    }
 
-  <!-- Paystack Integration Script -->
+    .container {
+      max-width: 600px;
+      margin: 50px auto;
+      background-color: #fff;
+      padding: 20px;
+      border-radius: 8px;
+      box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    }
+
+    h2 {
+      text-align: center;
+      color: #333;
+    }
+
+    .form-group {
+      margin-bottom: 15px;
+    }
+
+    .form-group label {
+      font-size: 14px;
+      color: #333;
+    }
+
+    .form-group input, .form-group select {
+      width: 100%;
+      padding: 10px;
+      margin-top: 5px;
+      border: 1px solid #ccc;
+      border-radius: 4px;
+    }
+
+    .action-button {
+      background-color: #4CAF50;
+      color: white;
+      padding: 10px 15px;
+      border: none;
+      border-radius: 4px;
+      cursor: pointer;
+      width: 100%;
+      font-size: 16px;
+    }
+
+    .action-button:hover {
+      background-color: #45a049;
+    }
+
+    .link {
+      text-align: center;
+      margin-top: 15px;
+    }
+
+    .link a {
+      color: #007BFF;
+      text-decoration: none;
+    }
+
+    .link a:hover {
+      text-decoration: underline;
+    }
+
+    .message {
+      text-align: center;
+      margin-top: 20px;
+      font-size: 16px;
+      color: #333;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Container for the Login and Signup forms -->
+  <div class="container">
+    <h2>User Authentication & Transactions</h2>
+
+    <!-- Login Form -->
+    <div id="login-form">
+      <div class="form-group">
+        <label for="login-email">Email:</label>
+        <input type="email" id="login-email" placeholder="Enter your email">
+      </div>
+      <div class="form-group">
+        <label for="login-password">Password:</label>
+        <input type="password" id="login-password" placeholder="Enter your password">
+      </div>
+      <button class="action-button" onclick="loginUser()">Login</button>
+      <div class="link">
+        <p>Don't have an account? <a href="#" onclick="showSignupForm()">Sign up</a></p>
+      </div>
+    </div>
+
+    <!-- Signup Form -->
+    <div id="signup-form" style="display: none;">
+      <div class="form-group">
+        <label for="signup-email">Email:</label>
+        <input type="email" id="signup-email" placeholder="Enter your email">
+      </div>
+      <div class="form-group">
+        <label for="signup-password">Password:</label>
+        <input type="password" id="signup-password" placeholder="Enter your password">
+      </div>
+      <button class="action-button" onclick="signupUser()">Sign Up</button>
+      <div class="link">
+        <p>Already have an account? <a href="#" onclick="showLoginForm()">Login</a></p>
+      </div>
+    </div>
+
+    <!-- Data and Airtime Purchase Form -->
+    <div id="purchase-form" style="display: none;">
+      <h3>Purchase Data or Airtime</h3>
+      <div class="form-group">
+        <label for="purchase-type">Select Purchase Type:</label>
+        <select id="purchase-type">
+          <option value="data">Buy Data</option>
+          <option value="airtime">Buy Airtime</option>
+        </select>
+      </div>
+      <div class="form-group">
+        <label for="purchase-amount">Enter Amount (₦):</label>
+        <input type="number" id="purchase-amount" placeholder="Enter amount">
+      </div>
+      <button class="action-button" onclick="processPurchase()">Purchase</button>
+      <div class="message" id="purchase-message"></div>
+    </div>
+
+    <!-- Payment Button -->
+    <button class="action-button" id="paystack-button" style="display: none;">Pay with Paystack</button>
+
+    <div class="message" id="message"></div>
+  </div>
+
   <script>
-    function payWithPaystack() {
+    // Function to switch to login form
+    function showLoginForm() {
+      document.getElementById('signup-form').style.display = 'none';
+      document.getElementById('login-form').style.display = 'block';
+      document.getElementById('paystack-button').style.display = 'none';
+      document.getElementById('purchase-form').style.display = 'none';
+    }
+
+    // Function to switch to signup form
+    function showSignupForm() {
+      document.getElementById('login-form').style.display = 'none';
+      document.getElementById('signup-form').style.display = 'block';
+      document.getElementById('paystack-button').style.display = 'none';
+      document.getElementById('purchase-form').style.display = 'none';
+    }
+
+    // Simulating user login
+    function loginUser() {
+      var email = document.getElementById('login-email').value;
+      var password = document.getElementById('login-password').value;
+      
+      if (email && password) {
+        document.getElementById('message').innerHTML = "Login Successful!";
+        document.getElementById('purchase-form').style.display = 'block';  // Show purchase form after login
+      } else {
+        document.getElementById('message').innerHTML = "Please fill all fields.";
+      }
+    }
+
+    // Simulating user signup
+    function signupUser() {
+      var email = document.getElementById('signup-email').value;
+      var password = document.getElementById('signup-password').value;
+      
+      if (email && password) {
+        document.getElementById('message').innerHTML = "Signup Successful!";
+        document.getElementById('purchase-form').style.display = 'block';  // Show purchase form after signup
+      } else {
+        document.getElementById('message').innerHTML = "Please fill all fields.";
+      }
+    }
+
+    // Function to process purchase (buy data or airtime)
+    function processPurchase() {
+      var purchaseType = document.getElementById('purchase-type').value;
+      var amount = document.getElementById('purchase-amount').value;
+
+      if (amount && purchaseType) {
+        document.getElementById('purchase-message').innerHTML = "Processing your " + purchaseType + " purchase of ₦" + amount;
+        document.getElementById('paystack-button').style.display = 'block';  // Show payment button after selection
+      } else {
+        document.getElementById('purchase-message').innerHTML = "Please fill all fields.";
+      }
+    }
+
+    // Paystack payment integration
+    document.getElementById('paystack-button').addEventListener('click', function () {
+      var amount = document.getElementById('purchase-amount').value;
       var handler = PaystackPop.setup({
-        key: 'sk_live_d376cf9690cd746cd9ffd6ab6b38cd1a03ccd642',  // Live Key (sk_live_d376cf9690cd746cd9ffd6ab6b38cd1a03ccd642)
-        email: 'auh439@gmail.com',  // Canza user email na mai amfani
-        amount: 2500,  // Amount in Kobo (25 Naira = 2500 Kobo)
-        currency: 'NGN',  // Currency: NGN (Naira)
-        callback: function(response) {
-          alert('Payment was successful! Transaction reference is ' + response.reference);
+        key: 'your-pk_live_fefa4cab21e99bd551e0979a445038b389d9cfea',  //sk_live_d376cf9690cd746cd9ffd6ab6b38cd1a03ccd642  (test/live)
+        email: 'auh439@gmail.com',    // Replace with the logged-in user's email
+        amount: amount * 100,         // Amount in kobo (₦25 = 2500 kobo)
+        currency: "NGN",              // Currency (NGN for Naira)
+        callback: function (response) {
+          alert('Payment successful! Transaction reference: ' + response.reference);
+          // Here you can send the reference to your backend for validation
         },
-        onClose: function() {
-          alert('Payment window was closed.');
+        onClose: function () {
+          alert('Payment window closed.');
         }
       });
-      handler.openIframe();  // Buɗe iframe na Paystack don biyan kuɗi
-    }
+      handler.openIframe();
+    });
   </script>
+
 </body>
 </html>
