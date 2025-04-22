@@ -157,10 +157,6 @@
     <input type="tel" id="phone" placeholder="Enter Phone Number" />
     <button class="action" onclick="buyData()">Buy Now</button>
     <p id="purchase-message"></p>
-    <section id="paystack-payment" class="tab-content">
-      <h2>Make Payment</h2>
-      <button id="paystack-button" class="action">Pay with Paystack</button>
-    </section>
   </section>
 
   <section id="admin" class="tab-content">
@@ -253,42 +249,4 @@
       if (file) {
         const reader = new FileReader();
         reader.onload = () => {
-          const img = document.getElementById('profile-pic');
-          img.src = reader.result;
-          img.style.display = 'block';
-          localStorage.setItem('profilePic', reader.result);
-        };
-        reader.readAsDataURL(file);
-      }
-    }
-
-    function loadProfile() {
-      const user = JSON.parse(localStorage.getItem('user'));
-      const name = user?.username || 'Guest';
-      document.getElementById('profile-name').textContent = `Welcome, ${name}`;
-      const pic = localStorage.getItem('profilePic');
-      if (pic) {
-        const img = document.getElementById('profile-pic');
-        img.src = pic;
-        img.style.display = 'block';
-      }
-    }
-
-    document.addEventListener('DOMContentLoaded', () => {
-      loadTransactions();
-    });
-
-    // Paystack Payment Script
-    document.getElementById('paystack-button').addEventListener('click', function () {
-        var handler = PaystackPop.setup({
-            key: 'your-public-test-key',  // Replace with your Paystack test key
-            email: 'user@example.com',    // Replace with user's email
-            amount: 50000,                // Amount in kobo, for example 50000 kobo = ₦500
-            currency: "NGN",
-            callback: function (response) {
-                alert('Payment successful! Transaction ref is ' + response.reference);
-            },
-            onClose: function () {
-                alert('Payment window closed.');
-            }
-        });
+          const img = document.getElementById('profile-pic
