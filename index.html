@@ -203,8 +203,8 @@
     document.getElementById('paystack-button').addEventListener('click', function () {
       var amount = document.getElementById('purchase-amount').value;
       var handler = PaystackPop.setup({
-        key: 'your-pk_live_fefa4cab21e99bd551e0979a445038b389d9cfea',  //sk_live_d376cf9690cd746cd9ffd6ab6b38cd1a03ccd642  (test/live)
-        email: 'auh439@gmail.com',    // Replace with the logged-in user's email
+        key: 'your-public-test-key',  // Replace with your Paystack public key (test/live)
+        email: document.getElementById('login-email').value,    // Replace with the logged-in user's email
         amount: amount * 100,         // Amount in kobo (₦25 = 2500 kobo)
         currency: "NGN",              // Currency (NGN for Naira)
         callback: function (response) {
