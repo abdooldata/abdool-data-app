@@ -12,6 +12,7 @@
       padding: 0;
       background-color: #f0f0f0;
     }
+
     .container {
       max-width: 600px;
       margin: 50px auto;
@@ -20,17 +21,21 @@
       border-radius: 8px;
       box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
     }
+
     h2 {
       text-align: center;
       color: #333;
     }
+
     .form-group {
       margin-bottom: 15px;
     }
+
     .form-group label {
       font-size: 14px;
       color: #333;
     }
+
     .form-group input, .form-group select {
       width: 100%;
       padding: 10px;
@@ -38,6 +43,7 @@
       border: 1px solid #ccc;
       border-radius: 4px;
     }
+
     .action-button {
       background-color: #4CAF50;
       color: white;
@@ -48,20 +54,25 @@
       width: 100%;
       font-size: 16px;
     }
+
     .action-button:hover {
       background-color: #45a049;
     }
+
     .link {
       text-align: center;
       margin-top: 15px;
     }
+
     .link a {
       color: #007BFF;
       text-decoration: none;
     }
+
     .link a:hover {
       text-decoration: underline;
     }
+
     .message {
       text-align: center;
       margin-top: 20px;
@@ -73,7 +84,7 @@
 <body>
 
   <div class="container">
-    <h2>Abdool Data App</h2>
+    <h2>Abdool Data App - User Authentication & Transactions</h2>
 
     <!-- Login Form -->
     <div id="login-form">
@@ -105,15 +116,6 @@
       <div class="link">
         <p>Already have an account? <a href="#" onclick="showLoginForm()">Login</a></p>
       </div>
-    </div>
-
-    <!-- Referral Program Section -->
-    <div id="referral-section" style="display: none;">
-      <h3>Referral Program</h3>
-      <p>Earn rewards by referring your friends! Share your code and get bonuses.</p>
-      <p>Your Referral Code: <span id="referral-code">ABC123XYZ</span></p>
-      <button class="action-button" onclick="shareReferralCode()">Share Referral Code</button>
-      <div id="referral-message"></div>
     </div>
 
     <!-- Data and Airtime Purchase Form -->
@@ -165,7 +167,6 @@
       if (email && password) {
         document.getElementById('message').innerHTML = "Login Successful!";
         document.getElementById('purchase-form').style.display = 'block';  // Show purchase form after login
-        document.getElementById('referral-section').style.display = 'block';  // Show referral program
       } else {
         document.getElementById('message').innerHTML = "Please fill all fields.";
       }
@@ -179,16 +180,9 @@
       if (email && password) {
         document.getElementById('message').innerHTML = "Signup Successful!";
         document.getElementById('purchase-form').style.display = 'block';  // Show purchase form after signup
-        document.getElementById('referral-section').style.display = 'block';  // Show referral program
       } else {
         document.getElementById('message').innerHTML = "Please fill all fields.";
       }
-    }
-
-    // Referral Code Share
-    function shareReferralCode() {
-      var referralCode = document.getElementById('referral-code').innerText;
-      document.getElementById('referral-message').innerHTML = "Share this referral code with your friends: " + referralCode;
     }
 
     // Function to process purchase (buy data or airtime)
