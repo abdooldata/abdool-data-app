@@ -1,24 +1,23 @@
-# Data Selling Web App
+# abdooldata app
 
-This is a simple data-selling website that allows users to sign up, log in, and purchase mobile data plans. The entire app is built using HTML, CSS, and vanilla JavaScript.
+This is a simple data-selling web app that allows users to register, log in, and buy mobile data bundles. The app is fully built with HTML, CSS, and JavaScript — all on a single page for ease of use.
 
 ## Features
-- User Signup
-- User Login
-- Data Purchase Dashboard
-- One-page layout (no page reloads)
-- Mobile-friendly responsive design
+- Signup and Login system
+- Dashboard for buying mobile data
+- Smooth tab switching without page reload
+- Responsive and mobile-friendly interface
+- Easy to deploy via GitHub Pages
 
 ## Live Demo
-[View the Live Website](https://your-username.github.io/data-selling-app/)
+[View the Live Website](https://your-username.github.io/abdooldata-app/)
 
-> Replace `your-username` with your actual GitHub username.
+> Replace `your-username` with your GitHub username.
 
 ## How to Use
-1. Open the live website.
-2. Use the **Signup** tab to register.
-3. Go to the **Login** tab to access the dashboard.
-4. In the **Dashboard**, select a network, choose your data plan, enter your phone number, and click submit.
+1. Click on the **Signup** tab to create an account.
+2. Log in using the **Login** tab.
+3. Access the **Dashboard** to choose your network, select a data plan, input your phone number, and hit submit.
 
 ## Built With
 - HTML
@@ -26,6 +25,7 @@ This is a simple data-selling website that allows users to sign up, log in, and 
 - JavaScript
 
 ## Author
-Created by [Your Name](https://github.com/abdoodata app)
+Created by [abdooldata](https://github.com/abdooldata)
 
-> Feel free to customize this app and make it better!
+> Contributions, ideas, and feedback are welcome!
+
