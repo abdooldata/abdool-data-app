@@ -241,12 +241,3 @@
     }
 
     function toggleDarkMode() {
-      document.body.classList.toggle('dark');
-    }
-
-    function uploadImage(event) {
-      const file = event.target.files[0];
-      if (file) {
-        const reader = new FileReader();
-        reader.onload = () => {
-          const img = document.getElementById('profile-pic
