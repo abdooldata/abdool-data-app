@@ -83,7 +83,6 @@
 </head>
 <body>
 
-  <!-- Container for the Login and Signup forms -->
   <div class="container">
     <h2>User Authentication & Transactions</h2>
 
@@ -203,13 +202,13 @@
     document.getElementById('paystack-button').addEventListener('click', function () {
       var amount = document.getElementById('purchase-amount').value;
       var handler = PaystackPop.setup({
-        key: 'your-public-live-key',  // pk_live_fefa4cab21e99bd551e0979a445038b389d9cfea
-        email: document.getElementById('login-email').value,    // Replace with the logged-in user's email
+        key: 'pk_live_fefa4cab21e99bd551e0979a445038b389d9cfea',  // Live Paystack Public Key
+        email: document.getElementById('login-email').value,    // Logged-in user email
         amount: amount * 100,         // Amount in kobo (₦25 = 2500 kobo)
         currency: "NGN",              // Currency (NGN for Naira)
         callback: function (response) {
           alert('Payment successful! Transaction reference: ' + response.reference);
-          // Here you can send the reference to your backend for validation
+          // Send reference to backend for validation if necessary
         },
         onClose: function () {
           alert('Payment window closed.');
