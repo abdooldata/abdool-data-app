@@ -1,30 +1,222 @@
-# abdooldata app
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>User Authentication with Paystack and Buy Data/Airtime</title>
+  <script src="https://js.paystack.co/v1/inline.js"></script>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      margin: 0;
+      padding: 0;
+      background-color: #f0f0f0;
+    }
 
-This is a simple data-selling web app that allows users to register, log in, and buy mobile data bundles. The app is fully built with HTML, CSS, and JavaScript — all on a single page for ease of use.
+    .container {
+      max-width: 600px;
+      margin: 50px auto;
+      background-color: #fff;
+      padding: 20px;
+      border-radius: 8px;
+      box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    }
 
-## Features
-- Signup and Login system
-- Dashboard for buying mobile data
-- Smooth tab switching without page reload
-- Responsive and mobile-friendly interface
-- Easy to deploy via GitHub Pages
+    h2 {
+      text-align: center;
+      color: #333;
+    }
 
-## Live Demo
-[View the Live Website](https://abdooldata.github.io/abdooldata-app/)
+    .form-group {
+      margin-bottom: 15px;
+    }
 
-## How to Use
-1. Click on the **Signup** tab to create an account.
-2. Log in using the **Login** tab.
-3. Access the **Dashboard** to choose your network, select a data plan, input your phone number, and hit submit.
+    .form-group label {
+      font-size: 14px;
+      color: #333;
+    }
 
-## Built With
-- HTML
-- CSS
-- JavaScript
+    .form-group input, .form-group select {
+      width: 100%;
+      padding: 10px;
+      margin-top: 5px;
+      border: 1px solid #ccc;
+      border-radius: 4px;
+    }
 
-## Author
-Created by [abdooldata](https://github.com/abdooldata)
+    .action-button {
+      background-color: #4CAF50;
+      color: white;
+      padding: 10px 15px;
+      border: none;
+      border-radius: 4px;
+      cursor: pointer;
+      width: 100%;
+      font-size: 16px;
+    }
 
-> Contributions, ideas, and feedback are welcome!
+    .action-button:hover {
+      background-color: #45a049;
+    }
 
+    .link {
+      text-align: center;
+      margin-top: 15px;
+    }
 
+    .link a {
+      color: #007BFF;
+      text-decoration: none;
+    }
+
+    .link a:hover {
+      text-decoration: underline;
+    }
+
+    .message {
+      text-align: center;
+      margin-top: 20px;
+      font-size: 16px;
+      color: #333;
+    }
+  </style>
+</head>
+<body>
+
+  <div class="container">
+    <h2>User Authentication & Transactions</h2>
+
+    <!-- Login Form -->
+    <div id="login-form">
+      <div class="form-group">
+        <label for="login-email">Email:</label>
+        <input type="email" id="login-email" placeholder="Enter your email">
+      </div>
+      <div class="form-group">
+        <label for="login-password">Password:</label>
+        <input type="password" id="login-password" placeholder="Enter your password">
+      </div>
+      <button class="action-button" onclick="loginUser()">Login</button>
+      <div class="link">
+        <p>Don't have an account? <a href="#" onclick="showSignupForm()">Sign up</a></p>
+      </div>
+    </div>
+
+    <!-- Signup Form -->
+    <div id="signup-form" style="display: none;">
+      <div class="form-group">
+        <label for="signup-email">Email:</label>
+        <input type="email" id="signup-email" placeholder="Enter your email">
+      </div>
+      <div class="form-group">
+        <label for="signup-password">Password:</label>
+        <input type="password" id="signup-password" placeholder="Enter your password">
+      </div>
+      <button class="action-button" onclick="signupUser()">Sign Up</button>
+      <div class="link">
+        <p>Already have an account? <a href="#" onclick="showLoginForm()">Login</a></p>
+      </div>
+    </div>
+
+    <!-- Data and Airtime Purchase Form -->
+    <div id="purchase-form" style="display: none;">
+      <h3>Purchase Data or Airtime</h3>
+      <div class="form-group">
+        <label for="purchase-type">Select Purchase Type:</label>
+        <select id="purchase-type">
+          <option value="data">Buy Data</option>
+          <option value="airtime">Buy Airtime</option>
+        </select>
+      </div>
+      <div class="form-group">
+        <label for="purchase-amount">Enter Amount (₦):</label>
+        <input type="number" id="purchase-amount" placeholder="Enter amount">
+      </div>
+      <button class="action-button" onclick="processPurchase()">Purchase</button>
+      <div class="message" id="purchase-message"></div>
+    </div>
+
+    <!-- Payment Button -->
+    <button class="action-button" id="paystack-button" style="display: none;">Pay with Paystack</button>
+
+    <div class="message" id="message"></div>
+  </div>
+
+  <script>
+    // Function to switch to login form
+    function showLoginForm() {
+      document.getElementById('signup-form').style.display = 'none';
+      document.getElementById('login-form').style.display = 'block';
+      document.getElementById('paystack-button').style.display = 'none';
+      document.getElementById('purchase-form').style.display = 'none';
+    }
+
+    // Function to switch to signup form
+    function showSignupForm() {
+      document.getElementById('login-form').style.display = 'none';
+      document.getElementById('signup-form').style.display = 'block';
+      document.getElementById('paystack-button').style.display = 'none';
+      document.getElementById('purchase-form').style.display = 'none';
+    }
+
+    // Simulating user login
+    function loginUser() {
+      var email = document.getElementById('login-email').value;
+      var password = document.getElementById('login-password').value;
+      
+      if (email && password) {
+        document.getElementById('message').innerHTML = "Login Successful!";
+        document.getElementById('purchase-form').style.display = 'block';  // Show purchase form after login
+      } else {
+        document.getElementById('message').innerHTML = "Please fill all fields.";
+      }
+    }
+
+    // Simulating user signup
+    function signupUser() {
+      var email = document.getElementById('signup-email').value;
+      var password = document.getElementById('signup-password').value;
+      
+      if (email && password) {
+        document.getElementById('message').innerHTML = "Signup Successful!";
+        document.getElementById('purchase-form').style.display = 'block';  // Show purchase form after signup
+      } else {
+        document.getElementById('message').innerHTML = "Please fill all fields.";
+      }
+    }
+
+    // Function to process purchase (buy data or airtime)
+    function processPurchase() {
+      var purchaseType = document.getElementById('purchase-type').value;
+      var amount = document.getElementById('purchase-amount').value;
+
+      if (amount && purchaseType) {
+        document.getElementById('purchase-message').innerHTML = "Processing your " + purchaseType + " purchase of ₦" + amount;
+        document.getElementById('paystack-button').style.display = 'block';  // Show payment button after selection
+      } else {
+        document.getElementById('purchase-message').innerHTML = "Please fill all fields.";
+      }
+    }
+
+    // Paystack payment integration
+    document.getElementById('paystack-button').addEventListener('click', function () {
+      var amount = document.getElementById('purchase-amount').value;
+      var handler = PaystackPop.setup({
+        key: 'pk_live_fefa4cab21e99bd551e0979a445038b389d9cfea',  // Live Paystack Public Key
+        email: document.getElementById('login-email').value,    // Logged-in user email
+        amount: amount * 100,         // Amount in kobo (₦25 = 2500 kobo)
+        currency: "NGN",              // Currency (NGN for Naira)
+        callback: function (response) {
+          alert('Payment successful! Transaction reference: ' + response.reference);
+          // Send reference to backend for validation if necessary
+        },
+        onClose: function () {
+          alert('Payment window closed.');
+        }
+      });
+      handler.openIframe();
+    });
+  </script>
+
+</body>
+</html>
