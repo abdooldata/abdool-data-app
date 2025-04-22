@@ -10,9 +10,7 @@ This is a simple data-selling web app that allows users to register, log in, and
 - Easy to deploy via GitHub Pages
 
 ## Live Demo
-[View the Live Website](https://your-username.github.io/abdooldata-app/)
-
-> Replace `your-username` with your GitHub username.
+[View the Live Website](https://abdooldata.github.io/abdooldata-app/)
 
 ## How to Use
 1. Click on the **Signup** tab to create an account.
@@ -28,4 +26,5 @@ This is a simple data-selling web app that allows users to register, log in, and
 Created by [abdooldata](https://github.com/abdooldata)
 
 > Contributions, ideas, and feedback are welcome!
+
 
