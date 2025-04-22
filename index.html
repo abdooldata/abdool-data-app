@@ -275,3 +275,92 @@
   </script>
 </body>
 </html>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>abdooldata App</title>
+  <link rel="icon" href="https://cdn-icons-png.flaticon.com/512/1041/1041916.png" type="image/png">
+  <style>
+    * {
+      box-sizing: border-box;
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      margin: 0;
+      padding: 0;
+      transition: all 0.3s ease-in-out;
+    }
+
+    body {
+      background: #f4f4f9;
+      color: #333;
+      padding: 1rem;
+    }
+
+    header {
+      background-color: #0047ab;
+      padding: 1rem;
+      text-align: center;
+      color: white;
+      border-radius: 10px;
+      margin-bottom: 1rem;
+    }
+
+    footer {
+      text-align: center;
+      margin-top: 3rem;
+      color: #777;
+    }
+
+    #paystack-button {
+      padding: 1rem 2rem;
+      background-color: #28a745;
+      color: white;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+      font-size: 1rem;
+      margin-top: 1rem;
+    }
+
+    #paystack-button:hover {
+      background-color: #218838;
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <h1>abdooldata App</h1>
+    <p>Buy Data Easily & Instantly</p>
+  </header>
+
+  <!-- Paystack Payment Button -->
+  <button id="paystack-button" onclick="payWithPaystack()">Pay ₦25 with Paystack</button>
+
+  <footer>
+    <p>&copy; 2025 abdooldata. All rights reserved.</p>
+  </footer>
+
+  <!-- Paystack Inline.js Script -->
+  <script src="https://js.paystack.co/v1/inline.js"></script>
+
+  <!-- Paystack Integration Script -->
+  <script>
+    function payWithPaystack() {
+      var handler = PaystackPop.setup({
+        key: 'sk_live_d376cf9690cd746cd9ffd6ab6b38cd1a03ccd642',  // Live Key (sk_live_d376cf9690cd746cd9ffd6ab6b38cd1a03ccd642)
+        email: 'auh439@gmail.com',  // Canza user email na mai amfani
+        amount: 2500,  // Amount in Kobo (25 Naira = 2500 Kobo)
+        currency: 'NGN',  // Currency: NGN (Naira)
+        callback: function(response) {
+          alert('Payment was successful! Transaction reference is ' + response.reference);
+        },
+        onClose: function() {
+          alert('Payment window was closed.');
+        }
+      });
+      handler.openIframe();  // Buɗe iframe na Paystack don biyan kuɗi
+    }
+  </script>
+</body>
+</html>
